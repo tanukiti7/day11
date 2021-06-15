@@ -1,0 +1,59 @@
+<%
+    deck = Poker.create_deck()
+    shuffled_deck = Poker.shuffle(deck)
+    {mydeck, stack} = Poker.deal(shuffled_deck, 5)
+    [mycard1, mycard2, mycard3, mycard4, mycard5] = mydeck
+    {enemydeck, _stack} = Poker.deal(stack, 5)
+    [enemycard1, enemycard2, enemycard3, enemycard4, enemycard5] = enemydeck
+    indexed_deck = Enum.with_index(deck, 1)
+    mapped_deck = Enum.into(indexed_deck, %{})
+    m1 = mapped_deck[mycard1]
+    m2 = mapped_deck[mycard2]
+    m3 = mapped_deck[mycard3]
+    m4 = mapped_deck[mycard4]
+    m5 = mapped_deck[mycard5]
+    e1 = mapped_deck[enemycard1]
+    e2 = mapped_deck[enemycard2]
+    e3 = mapped_deck[enemycard3]
+    e4 = mapped_deck[enemycard4]
+    e5 = mapped_deck[enemycard5]
+    myscore = Poker.flash?(m1,m2,m3,m4,m5) + Poker.pair?(m1,m2,m3,m4,m5) + Poker.straight?(m1,m2,m3,m4,m5)
+    myhand = Poker.define_hand(myscore)
+    enemyscore = Poker.flash?(e1,e2,e3,e4,e5) + Poker.pair?(e1,e2,e3,e4,e5) + Poker.straight?(e1,e2,e3,e4,e5)
+    enemyhand = Poker.define_hand(enemyscore)
+    result = Poker.result(myscore, enemyscore)
+
+ %>
+
+<div id = "enemyhand">
+<span style ="background-color: #FFFFFF;" id=  "padding">
+<%= enemyhand
+%>
+</span>
+</div>
+
+ <div>
+<img src="/images/torannpu-illust<%= e1%>.png" alt="enemyCard1"/>
+<img src="/images/torannpu-illust<%= e2%>.png" alt="enemyCard2"/>
+<img src="/images/torannpu-illust<%= e3%>.png" alt="enemyCard3"/>
+<img src="/images/torannpu-illust<%= e4%>.png" alt="enemyCard4"/>
+<img src="/images/torannpu-illust<%= e5%>.png" alt="enemyCard5"/>
+</div>
+
+<div id ="result">
+<%= result%>
+</div>
+<div>
+<img src="/images/torannpu-illust<%= m1%>.png" alt="myCard1"/>
+<img src="/images/torannpu-illust<%= m2%>.png" alt="myCard2"/>
+<img src="/images/torannpu-illust<%= m3%>.png" alt="myCard3"/>
+<img src="/images/torannpu-illust<%= m4%>.png" alt="myCard4"/>
+<img src="/images/torannpu-illust<%= m5%>.png" alt="myCard5"/>
+</div>
+
+<div id ="myhand">
+<span style ="background-color: #FFFFFF;" id=  "padding">
+<%= myhand
+%>
+</span>
+</div>
